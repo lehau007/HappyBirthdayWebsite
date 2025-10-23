@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title|default:"Create User - Admin Panel" }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .header {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn, .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover, .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .admin-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .admin-logo {
+            color: #ffd93d;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-title {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-subtitle {
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .create-user-form {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.02);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .create-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .create-btn:active {
+            transform: translateY(0);
+        }
+
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            color: #fff;
+        }
+
+        .alert-error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.5);
+            color: #fff;
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: left;
+        }
+
+        .instructions h4 {
+            color: #ffd93d;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .instructions ul {
+            color: #fff;
+            padding-left: 20px;
+            opacity: 0.9;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .admin-logo {
+                font-size: 2.5rem;
+            }
+            
+            .admin-title {
+                font-size: 1.5rem;
+            }
+
+            .header {
+                position: relative;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'birthday' %}" class="back-btn">← Back to Birthday</a>
+        <a href="{% url 'logout' %}" class="logout-btn">👋 Logout</a>
+    </div>
+
+    <div class="admin-container">
+        <div class="admin-logo">👑</div>
+        <h1 class="admin-title">Admin Panel</h1>
+        <p class="admin-subtitle">Create a new user account for birthday celebrations</p>
+
+        <!-- Display messages -->
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post" class="create-user-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="username">👤 Username:</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    value="{{ username|default:'' }}"
+                    placeholder="Enter unique username" 
+                    required
+                    autocomplete="username"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">🔐 Password:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Enter secure password" 
+                    required
+                    autocomplete="new-password"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="actual_name">🎂 Actual Name (Birthday Person):</label>
+                <input 
+                    type="text" 
+                    id="actual_name" 
+                    name="actual_name" 
+                    value="{{ actual_name|default:'' }}"
+                    placeholder="Enter the person's real name" 
+                    required
+                >
+            </div>
+
+            <button type="submit" class="create-btn">
+                ✨ Create Birthday Account
+            </button>
+        </form>
+
+        <div class="instructions">
+            <h4>📋 Instructions:</h4>
+            <ul>
+                <li>Create unique usernames for each birthday person</li>
+                <li>Use secure passwords (you'll share these with birthday users)</li>
+                <li>Enter the person's real name for personalized birthday messages</li>
+                <li>Share the login credentials with the birthday person</li>
+                <li>Users will be redirected to their birthday celebration page after login</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Add some admin sparkle effects
+        function createAdminSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.style.position = 'fixed';
+            sparkle.style.width = '6px';
+            sparkle.style.height = '6px';
+            sparkle.style.background = '#ffd93d';
+            sparkle.style.borderRadius = '50%';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            sparkle.style.animation = 'sparkle 3s linear forwards';
+            sparkle.style.zIndex = '1000';
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 3000);
+        }
+
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% {
+                    opacity: 0;
+                    transform: scale(0) rotate(0deg);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1) rotate(180deg);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Create sparkles periodically
+        setInterval(createAdminSparkle, 800);
+    </script>
+</body>
+</html>
