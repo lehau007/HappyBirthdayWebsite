@@ -1,0 +1,56 @@
+# --- Secrets / env files ---
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# --- Node / Vite / React ---
+**/node_modules/
+**/dist/
+**/build/
+**/.vite/
+**/.turbo/
+**/.cache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# --- Python / Django ---
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+**/.venv/
+
+# Django artifacts
+**/db.sqlite3
+**/*.sqlite3
+**/staticfiles/
+
+# Test/coverage caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- OS / Editor ---
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+
+# VS Code (keep workspace settings if you want them tracked)
+.vscode/
+
+# JetBrains
+.idea/
