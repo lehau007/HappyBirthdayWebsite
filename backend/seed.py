@@ -31,7 +31,7 @@ async def seed():
 
         root = RootAdmin(
             username="rootadmin",
-            hashed_password=hash_password("ChangeMe123!"),
+            hashed_password=hash_password(ROOT_ADMIN_password=os.getenv("ROOT_ADMIN_password", "ChangeMe123!"),
         )
         session.add(root)
         await session.commit()
