@@ -1,4 +1,4 @@
-# Happy Birthday Web — Running Guide
+# Happy Birthday Web - Running Guide
 
 A birthday-card web app with fireworks, flower animations, a personalised AI poem, and a feedback inbox.
 
