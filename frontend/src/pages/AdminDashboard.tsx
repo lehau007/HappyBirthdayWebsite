@@ -158,7 +158,7 @@ export default function AdminDashboard() {
                   placeholder="Thông tin sinh nhật (tuỳ chọn — dùng để cá nhân hoá bài thơ AI)"
                   value={newUser.birthday_info}
                   onChange={e => setNewUser(p => ({ ...p, birthday_info: e.target.value }))}
-                  maxLength={512}
+                  maxLength={10000}
                   className="bg-gray-800 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-cyan-400"
                 />
                 {createError && <p className="text-red-400 text-sm">{createError}</p>}

@@ -19,7 +19,7 @@ class AdminOut(BaseModel):
 class UserCreate(BaseModel):
     username: str = Field(min_length=3, max_length=64)
     password: str = Field(min_length=8, max_length=128)
-    birthday_info: str | None = Field(default=None, max_length=512)
+    birthday_info: str | None = Field(default=None, max_length=10000)
 
 
 class UserOut(BaseModel):
