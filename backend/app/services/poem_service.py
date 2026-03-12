@@ -30,10 +30,9 @@ async def generate_birthday_poem(username: str, birthday_info: str | None) -> st
     context = birthday_info or "ngày đặc biệt của họ"
     prompt = (
         f"Hãy viết một bài thơ sinh nhật ấm áp, chân thành bằng tiếng Việt "
-        f"dành cho người có tên {username}. "
-        f"Đề cập đến: {context}. "
+        f"**Với thông tin người cần chúc**: {context}. "
         "Bài thơ nên có 4–6 dòng, vui tươi và mang đậm tình cảm cá nhân. "
-        "Chỉ trả về bài thơ, không có lời giải thích thêm."
+        "**Chỉ trả về bài thơ, không có lời giải thích thêm.**"
     )
     return await asyncio.to_thread(_call_groq, prompt)
 
